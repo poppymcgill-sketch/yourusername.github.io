@@ -1,4 +1,908 @@
----
-layout: home
-# Index page
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poppy McGill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f7f3ed;
+      --cream-dark: #ede7dc;
+      --cream-mid: #f0ebe3;
+      --ink: #2c2416;
+      --ink-mid: #6b5c47;
+      --ink-light: #a8967f;
+      --ink-faint: #d4c8b8;
+      --terracotta: #b85c3a;
+      --sage: #7a9178;
+      --dusty-rose: #c4887a;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body-serif: 'Lora', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--body-serif);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--cream);
+      border-bottom: 1.5px solid var(--ink-faint);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .site-logo {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      letter-spacing: -0.01em;
+    }
+
+    .site-logo span {
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .site-nav a {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .site-nav a:hover, .site-nav a.active { color: var(--terracotta); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--cream-dark);
+      border-bottom: 1.5px solid var(--ink-faint);
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+    }
+
+    .hero-label {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-desc {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-tag {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--ink-faint);
+      color: var(--ink-mid);
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hero-tag:hover, .hero-tag.active {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: white;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 4rem;
+    }
+
+    /* ── FEATURED POST ── */
+    .featured-post {
+      border-bottom: 1.5px solid var(--ink-faint);
+      padding-bottom: 2.5rem;
+      margin-bottom: 2.5rem;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .featured-post:hover .featured-title { color: var(--terracotta); }
+
+    .featured-image {
+      background: var(--cream-dark);
+      border-radius: 4px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .featured-image-pattern {
+      width: 100%;
+      height: 100%;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 18px,
+        var(--ink-faint) 18px,
+        var(--ink-faint) 19px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 18px,
+        var(--ink-faint) 18px,
+        var(--ink-faint) 19px
+      );
+      opacity: 0.4;
+    }
+
+    .featured-label {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: white;
+      background: var(--terracotta);
+      padding: 0.25em 0.7em;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      border-radius: 2px;
+    }
+
+    .featured-category {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.6rem;
+    }
+
+    .featured-title {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .featured-excerpt {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      line-height: 1.65;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .featured-meta {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── POST GRID ── */
+    .posts-section-label {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .post-card {
+      cursor: pointer;
+      border-top: 1.5px solid var(--ink-faint);
+      padding-top: 1.2rem;
+    }
+
+    .post-card:hover .post-card-title { color: var(--terracotta); }
+
+    .post-card-category {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.4rem;
+    }
+
+    .post-card-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .post-card-excerpt {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 0.6rem;
+    }
+
+    .post-card-date {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {}
+
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .sidebar-label {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--ink-faint);
+    }
+
+    .about-blurb {
+      background: var(--cream-dark);
+      border-radius: 6px;
+      padding: 1.4rem;
+      text-align: center;
+    }
+
+    .about-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--ink-faint);
+      margin: 0 auto 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--ink-mid);
+    }
+
+    .about-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+
+    .about-bio {
+      font-family: var(--sans);
+      font-size: 0.76rem;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .topic-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .topic-list li {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      background: var(--cream-dark);
+      color: var(--ink-mid);
+      padding: 0.3em 0.8em;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .topic-list li:hover {
+      background: var(--terracotta);
+      color: white;
+    }
+
+    .recent-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .recent-item {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .recent-item:hover .recent-title { color: var(--terracotta); }
+
+    .recent-title {
+      font-family: var(--body-serif);
+      font-size: 0.85rem;
+      line-height: 1.35;
+      transition: color 0.2s;
+    }
+
+    .recent-date {
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      color: var(--ink-light);
+    }
+
+    /* ── POST VIEW ── */
+    #view-post {
+      display: none;
+    }
+
+    .post-view-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      cursor: pointer;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .back-btn:hover { color: var(--terracotta); }
+
+    .post-full-category {
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.8rem;
+    }
+
+    .post-full-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .post-full-meta {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--ink-light);
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .post-full-rule {
+      border: none;
+      border-top: 1.5px solid var(--ink-faint);
+      margin-bottom: 2.5rem;
+    }
+
+    .post-full-body {
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    .post-full-body p { margin-bottom: 1.4rem; }
+
+    .post-full-body h2 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin: 2.5rem 0 0.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .post-full-body h3 {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin: 2rem 0 0.6rem;
+    }
+
+    .post-full-body blockquote {
+      border-left: 2px solid var(--terracotta);
+      padding: 0.4rem 0 0.4rem 1.4rem;
+      margin: 2rem 0;
+      color: var(--ink-mid);
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    .post-full-body ul, .post-full-body ol {
+      padding-left: 1.4rem;
+      margin-bottom: 1.4rem;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .post-full-body li { margin-bottom: 0.3rem; }
+
+    .post-full-body strong { font-weight: 600; }
+
+    .post-full-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.8rem 0;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+    }
+
+    .post-full-body th {
+      background: var(--cream-dark);
+      padding: 0.6rem 0.9rem;
+      text-align: left;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-bottom: 1.5px solid var(--ink-faint);
+    }
+
+    .post-full-body td {
+      padding: 0.6rem 0.9rem;
+      border-bottom: 1px solid var(--ink-faint);
+      font-weight: 300;
+      vertical-align: top;
+      line-height: 1.55;
+    }
+
+    .post-full-body .callout {
+      background: var(--cream-dark);
+      border-left: 3px solid var(--terracotta);
+      padding: 1rem 1.3rem;
+      margin: 1.8rem 0;
+      border-radius: 0 4px 4px 0;
+      font-family: var(--sans);
+      font-size: 0.84rem;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .post-full-body .callout strong {
+      display: block;
+      color: var(--terracotta);
+      margin-bottom: 0.3rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--cream-dark);
+      border-top: 1.5px solid var(--ink-faint);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .site-footer p {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+    }
+
+    .site-footer strong {
+      font-family: var(--serif);
+      color: var(--ink-mid);
+      font-weight: 400;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in { animation: fadeUp 0.45s ease both; }
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.12s; }
+    .delay-3 { animation-delay: 0.19s; }
+    .delay-4 { animation-delay: 0.26s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .main-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .sidebar { display: none; }
+      .featured-post { grid-template-columns: 1fr; }
+      .featured-image { height: 160px; }
+    }
+
+    @media (max-width: 600px) {
+      .posts-grid { grid-template-columns: 1fr; }
+      .site-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="site-logo" onclick="showHome()">Poppy <span>McGill</span></div>
+      <nav class="site-nav">
+        <a onclick="showHome(); filterPosts(null)" class="active" id="nav-home">Home</a>
+        <a onclick="filterPosts('Law')" id="nav-law">Law</a>
+        <a onclick="filterPosts('Politics')" id="nav-politics">Politics</a>
+        <a onclick="filterPosts('Economics')" id="nav-economics">Economics</a>
+        <a onclick="filterPosts('Current Affairs')" id="nav-current">Current Affairs</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HOME VIEW -->
+  <div id="view-home">
+
+    <!-- HERO -->
+    <section class="hero">
+      <p class="hero-label">A blog by Poppy McGill</p>
+      <h1 class="hero-title">Law, <em>simply</em> put.</h1>
+      <p class="hero-desc">Legal commentary, current affairs and big ideas — made accessible, human and (occasionally) beautiful. No jargon. No academic snobbery. Just good thinking.</p>
+      <div class="hero-tags">
+        <span class="hero-tag active" onclick="filterPosts(null)">All</span>
+        <span class="hero-tag" onclick="filterPosts('Law')">Law</span>
+        <span class="hero-tag" onclick="filterPosts('Politics')">Politics</span>
+        <span class="hero-tag" onclick="filterPosts('Economics')">Economics</span>
+        <span class="hero-tag" onclick="filterPosts('Current Affairs')">Current Affairs</span>
+      </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-layout">
+
+      <!-- POSTS -->
+      <div>
+        <div id="featured-section"></div>
+        <p class="posts-section-label" id="posts-label">Latest posts</p>
+        <div class="posts-grid" id="posts-grid"></div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <p class="sidebar-label">About</p>
+          <div class="about-blurb">
+            <div class="about-avatar">P</div>
+            <p class="about-name">Poppy McGill</p>
+            <p class="about-bio">First-year law student at the University of Exeter. Writing about law, politics and economics for people who didn't go to Oxford.</p>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-label">Topics</p>
+          <ul class="topic-list" id="topic-list"></ul>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-label">Recent posts</p>
+          <ul class="recent-list" id="recent-list"></ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- POST VIEW -->
+  <div id="view-post">
+    <div class="post-view-inner">
+      <button class="back-btn" onclick="showHome()">← Back to all posts</button>
+      <p class="post-full-category" id="pf-category"></p>
+      <h1 class="post-full-title" id="pf-title"></h1>
+      <p class="post-full-meta" id="pf-meta"></p>
+      <hr class="post-full-rule" />
+      <div class="post-full-body" id="pf-body"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p><strong>Poppy McGill</strong> · Law, simply put · © 2026</p>
+  </footer>
+
+  <script>
+    const posts = [
+      {
+        id: 1,
+        title: "Proportionality & Irrationality: Case & Reading Grids",
+        category: "Law",
+        date: "9 Mar 2026",
+        featured: true,
+        excerpt: "Two of the most important grounds of judicial review explained plainly — what they mean, when they apply, and why the distinction matters.",
+        body: `
+          <p>Judicial review is one of the most powerful tools in public law — it's how courts hold the government to account. Two of its most important grounds are <strong>irrationality</strong> and <strong>proportionality</strong>. They sound similar but they work very differently.</p>
+
+          <h2>Irrationality (Wednesbury Unreasonableness)</h2>
+          <p>The classic test comes from <strong>Associated Provincial Picture Houses Ltd v Wednesbury Corporation [1948]</strong>. Lord Greene MR said a decision will be unlawful if it is so unreasonable that no reasonable authority could ever have come to it.</p>
+
+          <p>Think of it like a dial. Most government decisions sit somewhere in the middle — reasonable people could disagree about them. Wednesbury only kicks in when a decision is so far off the scale it's basically absurd.</p>
+
+          <h3>Key Cases</h3>
+          <table>
+            <tr><th>Case</th><th>What it decided</th></tr>
+            <tr><td><em>Wednesbury</em> [1948]</td><td>Foundational test — "so unreasonable no reasonable authority could reach it"</td></tr>
+            <tr><td><em>CCSU v Minister for the Civil Service</em> [1985]</td><td>Lord Diplock reformulates as "irrationality" — decision must be outrageous to defy logic</td></tr>
+            <tr><td><em>R v Secretary of State ex p Brind</em> [1991]</td><td>High threshold confirmed — courts stay out of executive discretion</td></tr>
+          </table>
+
+          <div class="callout">
+            <strong>Plain English version</strong>
+            The court isn't asking "do we agree with this decision?" It's asking "could any reasonable person in that position have made this decision?" The bar is deliberately high.
+          </div>
+
+          <h2>Proportionality</h2>
+          <p>Proportionality is stricter. It comes from EU and human rights law and asks not just whether a decision was reasonable, but whether it was the <em>least restrictive means</em> of achieving a legitimate aim. It's a much more searching inquiry.</p>
+
+          <h3>The Four-Stage Test (Bank Mellat [2013])</h3>
+          <ol>
+            <li><strong>Legitimate aim</strong> — is the objective important enough to justify limiting a right?</li>
+            <li><strong>Rational connection</strong> — does the measure actually achieve the aim?</li>
+            <li><strong>Necessity</strong> — could something less restrictive have worked?</li>
+            <li><strong>Fair balance</strong> — do the benefits outweigh the harm to the individual?</li>
+          </ol>
+
+          <h2>Why does the difference matter?</h2>
+          <table>
+            <tr><th></th><th>Wednesbury</th><th>Proportionality</th></tr>
+            <tr><td><strong>Standard</strong></td><td>Very high — "outrageous" decisions only</td><td>Stricter — least restrictive means</td></tr>
+            <tr><td><strong>Court's role</strong></td><td>Deferential to government</td><td>More willing to intervene</td></tr>
+            <tr><td><strong>Where it applies</strong></td><td>General public law</td><td>Human rights, EU law contexts</td></tr>
+          </table>
+
+          <p>The debate about whether Wednesbury should be abolished in favour of proportionality across the board is one of the most live questions in public law right now.</p>
+        `
+      },
+      {
+        id: 2,
+        title: "What Actually Happens When You Sue Someone",
+        category: "Law",
+        date: "8 Mar 2026",
+        featured: false,
+        excerpt: "Most people think lawsuits are like they are on TV. The reality is slower, more expensive, and far more interesting.",
+        body: `<p>Coming soon.</p>`
+      },
+      {
+        id: 3,
+        title: "The Cost of Living Crisis, Explained",
+        category: "Economics",
+        date: "7 Mar 2026",
+        featured: false,
+        excerpt: "Inflation, interest rates, energy prices — what's actually going on and who is really to blame.",
+        body: `<p>Coming soon.</p>`
+      },
+      {
+        id: 4,
+        title: "Is the UK Constitution Broken?",
+        category: "Politics",
+        date: "5 Mar 2026",
+        featured: false,
+        excerpt: "We're one of the few countries without a written constitution. Some say that's a strength. Others say it's how governments get away with things.",
+        body: `<p>Coming soon.</p>`
+      },
+      {
+        id: 5,
+        title: "Automatism & Insanity: The Line Nobody Can Agree On",
+        category: "Law",
+        date: "3 Mar 2026",
+        featured: false,
+        excerpt: "A diabetic who forgets their insulin could be labelled legally insane. A person who has a genuine psychotic episode after a street drug might walk free. The law is strange.",
+        body: `<p>Coming soon.</p>`
+      }
+    ];
+
+    let currentFilter = null;
+
+    function renderHome(filter) {
+      const filtered = filter ? posts.filter(p => p.category === filter) : posts;
+      const featured = !filter ? filtered.find(p => p.featured) : null;
+      const rest = featured ? filtered.filter(p => !p.featured) : filtered;
+
+      // Featured
+      const fs = document.getElementById('featured-section');
+      if (featured) {
+        fs.innerHTML = `
+          <div class="featured-post animate-in" onclick="openPost(${featured.id})">
+            <div class="featured-image">
+              <div class="featured-image-pattern"></div>
+              <span class="featured-label">Featured</span>
+            </div>
+            <div>
+              <p class="featured-category">${featured.category}</p>
+              <h2 class="featured-title">${featured.title}</h2>
+              <p class="featured-excerpt">${featured.excerpt}</p>
+              <p class="featured-meta">${featured.date}</p>
+            </div>
+          </div>
+        `;
+      } else {
+        fs.innerHTML = '';
+      }
+
+      // Grid
+      const grid = document.getElementById('posts-grid');
+      grid.innerHTML = '';
+      rest.forEach((post, i) => {
+        const card = document.createElement('div');
+        card.className = `post-card animate-in delay-${(i % 4) + 1}`;
+        card.innerHTML = `
+          <p class="post-card-category">${post.category}</p>
+          <h3 class="post-card-title">${post.title}</h3>
+          <p class="post-card-excerpt">${post.excerpt}</p>
+          <p class="post-card-date">${post.date}</p>
+        `;
+        card.addEventListener('click', () => openPost(post.id));
+        grid.appendChild(card);
+      });
+
+      document.getElementById('posts-label').textContent = filter ? `${filter} posts` : 'Latest posts';
+
+      // Sidebar recent
+      const rl = document.getElementById('recent-list');
+      if (rl) {
+        rl.innerHTML = posts.slice(0, 4).map(p => `
+          <li class="recent-item" onclick="openPost(${p.id})">
+            <span class="recent-title">${p.title}</span>
+            <span class="recent-date">${p.date}</span>
+          </li>
+        `).join('');
+      }
+
+      // Sidebar topics
+      const tl = document.getElementById('topic-list');
+      if (tl) {
+        const cats = [...new Set(posts.map(p => p.category))];
+        tl.innerHTML = cats.map(c => `<li onclick="filterPosts('${c}')">${c}</li>`).join('');
+      }
+    }
+
+    function filterPosts(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('.hero-tag').forEach(t => t.classList.remove('active'));
+      renderHome(cat);
+      // Scroll to posts
+      document.getElementById('view-home').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openPost(id) {
+      const post = posts.find(p => p.id === id);
+      if (!post) return;
+      document.getElementById('pf-category').textContent = post.category;
+      document.getElementById('pf-title').textContent = post.title;
+      document.getElementById('pf-meta').textContent = post.date;
+      document.getElementById('pf-body').innerHTML = post.body;
+
+      document.getElementById('view-home').style.display = 'none';
+      document.querySelector('.hero') && (document.querySelector('.hero').style.display = 'none');
+      const pv = document.getElementById('view-post');
+      pv.style.display = 'block';
+      pv.classList.add('animate-in');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showHome() {
+      document.getElementById('view-post').style.display = 'none';
+      document.getElementById('view-home').style.display = 'block';
+      const hero = document.querySelector('.hero');
+      if (hero) hero.style.display = 'block';
+      currentFilter = null;
+      renderHome(null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderHome(null);
+  </script>
+</body>
+</html>
